@@ -6,12 +6,21 @@ def main():
     pygame.init()
 
     screen = pygame.display.set_mode(size=[SCREEN_WIDTH, SCREEN_HEIGHT])
-    x = SCREEN_WIDTH / 2
-    y = SCREEN_HEIGHT / 2
+
+
     dt = 0
     dt_clock = pygame.time.Clock()
-    player = Player(x, y)
+    player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
 
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    pygame.sprite.Group.add(updatable, player)
+    pygame.sprite.Group.add(drawable, player)
+
+    print(pygame.sprite.Group.has(updatable, player))
+    print(pygame.sprite.Group.has(drawable, player))
     while True:
 
         for event in pygame.event.get():
@@ -19,8 +28,13 @@ def main():
                 return
 
         screen.fill(pygame.Color(0, 0, 0))
+        for objects in drawable:
+            objects.draw(screen)
+
+        for objects in updatable:
+            objects.update(dt)
+
         pygame.display.flip()
-        player.draw(screen)
         dt = dt_clock.tick(60)/1000
 
 
