@@ -5,6 +5,7 @@ from circleshape import CircleShape
 
 class Player(CircleShape):
     def __init__(self, x, y):
+
         self.radius = PLAYER_RADIUS
         super().__init__(x, y, self.radius)
         self.x = x
