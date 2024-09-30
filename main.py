@@ -1,8 +1,11 @@
+import sys
+
 import pygame
 from constants import *
 from player import *
 from asteroid import *
 from asteroidfield import *
+from shot import *
 
 def main():
     pygame.init()
@@ -37,9 +40,8 @@ def main():
             objects.update(dt)
 
         for objects in asteroids:
-            if CircleShape.is_coliding(objects):
-                print("Game over")
-                pygame.QUIT
+            if CircleShape.is_coliding(objects, player):
+                sys.exit("Game over")
 
 
         pygame.display.flip()
