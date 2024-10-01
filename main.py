@@ -45,6 +45,11 @@ def main():
             if CircleShape.is_coliding(objects, player):
                 sys.exit("Game over")
 
+        for objects in asteroids:
+            for bullet in shots:
+                if CircleShape.is_coliding(bullet, objects):
+                    objects.kill()
+
 
         pygame.display.flip()
         dt = dt_clock.tick(60)/1000

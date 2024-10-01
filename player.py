@@ -6,8 +6,8 @@ from shot import *
 
 class Player(CircleShape):
     def __init__(self, x, y):
-
         self.radius = PLAYER_RADIUS
+        self.pewpewtimer = 0
         super().__init__(x, y, self.radius)
         self.x = x
         self.y = y
@@ -36,8 +36,7 @@ class Player(CircleShape):
         shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
         shot_forward = pygame.Vector2(0, 1).rotate(self.rotation)
         shot.velocity = shot_forward * PLAYER_SHOOT_SPEED
-        print(f"Player position: {self.position.x}, {self.position.y}")
-
+        self.pewpewtimer = PLAYER_SHOOT_COOLDOWN
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -52,7 +51,13 @@ class Player(CircleShape):
         if keys[pygame.K_s]:
             self.move(-dt)
         if keys[pygame.K_SPACE]:
-            self.shoot()
+            if self.pewpewtimer <= 0:
+                self.shoot()
+
+        self.pewpewtimer -= dt
+        if self.pewpewtimer < 0:
+            self.pewpewtimer = 0
+        print(self.pewpewtimer)
 
 
 
