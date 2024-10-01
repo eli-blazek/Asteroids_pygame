@@ -48,7 +48,7 @@ def main():
         for objects in asteroids:
             for bullet in shots:
                 if CircleShape.is_coliding(bullet, objects):
-                    objects.kill()
+                    objects.split()
 
 
         pygame.display.flip()
